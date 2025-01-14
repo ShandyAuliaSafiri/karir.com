@@ -1,0 +1,747 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lowongan Pekerjaan - KERJA KERAS PARTY KERAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .filters {
+            background-color: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            border-radius: 12px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 12px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: #ff3333;
+            box-shadow: 0 0 0 3px rgba(255, 51, 51, 0.2);
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .job-card {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff3333, #ff8080);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #ff3333;
+        }
+
+        .job-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .job-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .job-card:hover .job-title {
+            color: #ff3333;
+        }
+
+        .company-name {
+            font-size: 18px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-name::before {
+            content: '🏢';
+            font-size: 16px;
+        }
+
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+            font-family: "Courier New", monospace;
+        }
+
+        .job-details span {
+            background-color: #f8f8f8;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-button {
+            background-color: #ff3333;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .action-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-button:hover {
+            background-color: #ff1a1a;
+            transform: translateY(-2px);
+        }
+
+        .action-button.applied {
+            background-color: #28a745;
+            cursor: default;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .pagination-button {
+            background-color: #fff;
+            border: 2px solid #000;
+            padding: 10px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-button:hover:not(:disabled),
+        .pagination-button.active {
+            background-color: #ff3333;
+            color: #fff;
+            border-color: #ff3333;
+            transform: translateY(-2px);
+        }
+
+        .pagination-button:disabled {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .job-card:hover .action-button:not(.applied) {
+            animation: pulse 1s infinite;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-button">BERANDA</a>
+        <a href="jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="notFound.html" class="nav-button">PEKERJAAN</a>
+        <a href="pesan.html" class="nav-button">PESAN</a>
+        <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="container">
+        <div class="filters">
+            <div class="filter-group">
+                <label for="location">Lokasi</label>
+                <select id="location">
+                    <option value="">Semua Lokasi</option>
+                    <option value="jakarta">Jakarta</option>
+                    <option value="bandung">Bandung</option>
+                    <option value="surabaya">Surabaya</option>
+                    <option value="remote">Remote</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="job-type">Tipe Pekerjaan</label>
+                <select id="job-type">
+                    <option value="">Semua Tipe</option>
+                    <option value="full-time">Full Time</option>
+                    <option value="part-time">Part Time</option>
+                    <option value="remote">Remote</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="experience">Pengalaman</label>
+                <select id="experience">
+                    <option value="">Semua Level</option>
+                    <option value="entry">Entry Level</option>
+                    <option value="mid">Mid Level</option>
+                    <option value="senior">Senior Level</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="salary">Gaji Minimum</label>
+                <select id="salary">
+                    <option value="">Semua Gaji</option>
+                    <option value="4000000">Rp 4.000.000</option>
+                    <option value="8000000">Rp 8.000.000</option>
+                    <option value="12000000">Rp 12.000.000</option>
+                    <option value="16000000">Rp 16.000.000</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="job-grid" id="jobGrid">
+            <!-- Job cards content remains the same -->
+            <!-- All job cards from original file go here unchanged -->
+            <div class="job-card" data-location="jakarta" data-type="full-time" data-experience="senior" data-salary="15000000">
+                <h2 class="job-title">Software Engineer</h2>
+                <div class="company-name">Tech Company A</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 15.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="part-time" data-experience="mid" data-salary="8000000">
+                <h2 class="job-title">Graphic Designer</h2>
+                <div class="company-name">Creative Studio B</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Part Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 8.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="remote" data-experience="entry" data-salary="5000000">
+                <h2 class="job-title">Content Writer</h2>
+                <div class="company-name">Media Company C</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Remote</span>
+                    <span>Entry Level</span>
+                    <span>Rp 5.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="full-time" data-experience="mid" data-salary="12000000">
+                <h2 class="job-title">Marketing Specialist</h2>
+                <div class="company-name">Marketing Agency D</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Full Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 12.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="full-time" data-experience="senior" data-salary="20000000">
+                <h2 class="job-title">Project Manager</h2>
+                <div class="company-name">Construction Company E</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 20.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="part-time" data-experience="entry" data-salary="4000000">
+                <h2 class="job-title">Customer Service</h2>
+                <div class="company-name">Service Company F</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Part Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 4.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="remote" data-experience="mid" data-salary="10000000">
+                <h2 class="job-title">Data Analyst</h2>
+                <div class="company-name">Tech Company G</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Remote</span>
+                    <span>Mid Level</span>
+                    <span>Rp 10.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="full-time" data-experience="senior" data-salary="18000000">
+                <h2 class="job-title">HR Manager</h2>
+                <div class="company-name">HR Company H</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 18.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="part-time" data-experience="mid" data-salary="7000000">
+                <h2 class="job-title">Sales Executive</h2>
+                <div class="company-name">Sales Company I</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Part Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 7.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="full-time" data-experience="entry" data-salary="6000000">
+                <h2 class="job-title">Junior Developer</h2>
+                <div class="company-name">Tech Company J</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Full Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 6.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="remote" data-experience="senior" data-salary="16000000">
+                <h2 class="job-title">Senior Designer</h2>
+                <div class="company-name">Design Company K</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Remote</span>
+                    <span>Senior Level</span>
+                    <span>Rp 16.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="full-time" data-experience="mid" data-salary="11000000">
+                <h2 class="job-title">Operations Manager</h2>
+                <div class="company-name">Operations Company L</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Full Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 11.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="part-time" data-experience="entry" data-salary="5000000">
+                <h2 class="job-title">Intern</h2>
+                <div class="company-name">Internship Company M</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Part Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 5.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="full-time" data-experience="senior" data-salary="14000000">
+                <h2 class="job-title">Finance Manager</h2>
+                <div class="company-name">Finance Company N</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 14.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="remote" data-experience="mid" data-salary="9000000">
+                <h2 class="job-title">Remote Developer</h2>
+                <div class="company-name">Tech Company O</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Remote</span>
+                    <span>Mid Level</span>
+                    <span>Rp 9.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="full-time" data-experience="senior" data-salary="17000000">
+                <h2 class="job-title">Senior Architect</h2>
+                <div class="company-name">Architecture Company P</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 17.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="part-time" data-experience="entry" data-salary="4500000">
+                <h2 class="job-title">Junior Accountant</h2>
+                <div class="company-name">Accounting Company Q</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Part Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 4.500.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="full-time" data-experience="mid" data-salary="10000000">
+                <h2 class="job-title">Product Manager</h2>
+                <div class="company-name">Product Company R</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Full Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 10.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="remote" data-experience="senior" data-salary="15000000">
+                <h2 class="job-title">Senior Consultant</h2>
+                <div class="company-name">Consulting Company S</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Remote</span>
+                    <span>Senior Level</span>
+                    <span>Rp 15.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="full-time" data-experience="mid" data-salary="13000000">
+                <h2 class="job-title">Mid-Level Developer</h2>
+                <div class="company-name">Tech Company T</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Full Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 13.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="part-time" data-experience="entry" data-salary="4000000">
+                <h2 class="job-title">Junior Designer</h2>
+                <div class="company-name">Design Company U</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Part Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 4.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="full-time" data-experience="senior" data-salary="16000000">
+                <h2 class="job-title">Senior Product Manager</h2>
+                <div class="company-name">Product Company V</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Full Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 16.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="remote" data-experience="mid" data-salary="12000000">
+                <h2 class="job-title">Remote Designer</h2>
+                <div class="company-name">Design Company W</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Remote</span>
+                    <span>Mid Level</span>
+                    <span>Rp 12.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="surabaya" data-type="full-time" data-experience="entry" data-salary="6000000">
+                <h2 class="job-title">Junior Marketer</h2>
+                <div class="company-name">Marketing Company X</div>
+                <div class="job-details">
+                    <span>Surabaya</span>
+                    <span>Full Time</span>
+                    <span>Entry Level</span>
+                    <span>Rp 6.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="jakarta" data-type="part-time" data-experience="senior" data-salary="14000000">
+                <h2 class="job-title">Senior HR Specialist</h2>
+                <div class="company-name">HR Company Y</div>
+                <div class="job-details">
+                    <span>Jakarta</span>
+                    <span>Part Time</span>
+                    <span>Senior Level</span>
+                    <span>Rp 14.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+            <div class="job-card" data-location="bandung" data-type="full-time" data-experience="mid" data-salary="11000000">
+                <h2 class="job-title">Mid-Level Consultant</h2>
+                <div class="company-name">Consulting Company Z</div>
+                <div class="job-details">
+                    <span>Bandung</span>
+                    <span>Full Time</span>
+                    <span>Mid Level</span>
+                    <span>Rp 11.000.000/bulan</span>
+                </div>
+                <button class="action-button">LAMAR SEKARANG</button>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- Pagination buttons will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const jobCards = Array.from(document.querySelectorAll('.job-card'));
+        const itemsPerPage = 6;
+        let currentPage = 1;
+        let filteredJobs = [...jobCards];
+
+        function filterJobs() {
+            const location = document.getElementById('location').value;
+            const jobType = document.getElementById('job-type').value;
+            const experience = document.getElementById('experience').value;
+            const salary = parseInt(document.getElementById('salary').value) || 0;
+
+            filteredJobs = jobCards.filter(card => {
+                const cardLocation = card.dataset.location;
+                const cardType = card.dataset.type;
+                const cardExperience = card.dataset.experience;
+                const cardSalary = parseInt(card.dataset.salary);
+
+                const locationMatch = !location || cardLocation === location;
+                const typeMatch = !jobType || cardType === jobType;
+                const experienceMatch = !experience || cardExperience === experience;
+                const salaryMatch = !salary || cardSalary >= salary;
+
+                return locationMatch && typeMatch && experienceMatch && salaryMatch;
+            });
+
+            currentPage = 1;
+            setupPagination();
+            showPage(1);
+            updatePaginationButtons();
+        }
+
+        function showPage(page) {
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            jobCards.forEach(card => card.style.display = 'none');
+            
+            filteredJobs.slice(startIndex, endIndex).forEach(card => {
+                card.style.display = 'block';
+            });
+        }
+
+        function setupPagination() {
+            const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
+            const paginationElement = document.getElementById('pagination');
+            paginationElement.innerHTML = '';
+
+            const prevButton = document.createElement('button');
+            prevButton.classList.add('pagination-button');
+            prevButton.textContent = '←';
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                }
+            });
+            paginationElement.appendChild(prevButton);
+
+            for (let i = 1; i <= pageCount; i++) {
+                const button = document.createElement('button');
+                button.classList.add('pagination-button');
+                button.textContent = i;
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                });
+                paginationElement.appendChild(button);
+            }
+
+            const nextButton = document.createElement('button');
+            nextButton.classList.add('pagination-button');
+            nextButton.textContent = '→';
+            nextButton.addEventListener('click', () => {
+                if (currentPage < pageCount) {
+                    currentPage++;
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                }
+            });
+            paginationElement.appendChild(nextButton);
+        }
+
+        function updatePaginationButtons() {
+            const buttons = document.querySelectorAll('.pagination-button');
+            const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
+            
+            buttons.forEach((button, index) => {
+                if (index === 0) {
+                    button.disabled = currentPage === 1;
+                } else if (index === buttons.length - 1) {
+                    button.disabled = currentPage === pageCount;
+                } else {
+                    if (index === currentPage) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        // Initialize pagination
+        setupPagination();
+        showPage(1);
+        updatePaginationButtons();
+
+        // Add filter event listeners
+        document.querySelectorAll('select, input').forEach(filter => {
+            filter.addEventListener('change', filterJobs);
+        });
+
+        // Add click handler for apply buttons
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!this.classList.contains('applied')) {
+                    this.textContent = 'LAMARAN TERKIRIM';
+                    this.style.backgroundColor = '#666';
+                    this.classList.add('applied');
+                    this.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

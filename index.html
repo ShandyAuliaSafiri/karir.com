@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KERJA KERAS PARTY KERAS - Portal Lowongan #1 Sejagad Raya!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Courier New", monospace;
+      }
+
+      body {
+        background-color: #f0f0f0;
+        border: 4px solid #000;
+        min-height: 100vh;
+      }
+
+      .header {
+        background-color: #000;
+        color: #fff;
+        padding: 20px;
+        border-bottom: 4px solid #ff3333;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #fff;
+        border-bottom: 4px solid #000;
+      }
+
+      .nav-button {
+        background-color: #fff;
+        border: 3px solid #000;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: #000;
+      }
+
+      .nav-button:hover {
+        background-color: #000;
+        color: #fff;
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 #000;
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .profile-card {
+        background-color: #fff;
+        border: 4px solid #000;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        border: 4px solid #000;
+        margin: 0 auto 20px;
+        display: block;
+      }
+
+      .profile-info {
+        flex: 1;
+        min-height: 120px;
+      }
+
+      .profile-title {
+        color: #666;
+        margin: 5px 0;
+      }
+
+      .profile-location {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .profile-bio {
+        font-size: 14px;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        word-wrap: break-word;
+      }
+
+      .feed {
+        background-color: #fff;
+        border: 4px solid #000;
+        padding: 20px;
+      }
+
+      .job-card {
+        border: 4px solid #000;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        transition: all 0.2s;
+      }
+
+      .job-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 8px 8px 0 #000;
+      }
+
+      .job-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #000;
+      }
+
+      .company-name {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      .job-details {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 15px;
+        font-family: "Courier New", monospace;
+      }
+
+      .news-card {
+        background-color: #fff;
+        border: 4px solid #000;
+        padding: 20px;
+      }
+
+      .action-button {
+        background-color: #ff3333;
+        color: #fff;
+        border: 3px solid #000;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-top: auto;
+        transition: all 0.2s;
+        text-decoration: none;
+        text-align: center;
+      }
+
+      .action-button:hover {
+        background-color: #000;
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 #ff3333;
+      }
+
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #000;
+        color: #fff;
+        padding: 15px 25px;
+        border: 3px solid #ff3333;
+        font-weight: bold;
+        transform: translateX(200%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+      }
+
+      .notification.show {
+        transform: translateX(0);
+      }
+
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s linear infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .action-button.sent {
+        background-color: #666;
+        cursor: not-allowed;
+      }
+
+      @media (max-width: 768px) {
+        .main-content {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .nav-button {
+          width: 100%;
+          text-align: center;
+        }
+      }
+      .chat-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 450px;
+    background-color: #fff;
+    border: 3px solid #000;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.chat-header {
+    background-color: #000;
+    color: #fff;
+    padding: 12px 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 3px solid #ff3333;
+}
+
+.chat-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: #ff3333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.chat-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-title small {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.user-message {
+    background-color: #000;
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+    background-color: #fff;
+    border: 2px solid #000;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background-color: #fff;
+    border-top: 2px solid #eee;
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    font-family: inherit;
+    max-height: 100px;
+    transition: all 0.2s ease;
+}
+
+.chat-input textarea:focus {
+    outline: none;
+    border-color: #ff3333;
+}
+
+.chat-input button {
+    width: 40px;
+    height: 40px;
+    background-color: #ff3333;
+    color: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.chat-input button:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.minimized {
+    height: 60px;
+}
+
+.minimized .chat-messages,
+.minimized .chat-input {
+    display: none;
+}
+
+#chatToggle {
+    transition: transform 0.3s ease;
+}
+
+.minimized #chatToggle {
+    transform: rotate(180deg);
+}
+
+/* Scrollbar Styling */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Animation for messages */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-message {
+    animation: slideIn 0.3s ease forwards;
+}
+
+      .minimized {
+        height: 40px;
+      }
+
+      .notification {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #ffcc00;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+        z-index: 2000;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+      <a href="index.html" class="nav-button">BERANDA</a>
+      <a href="jaringan.html" class="nav-button">JARINGAN</a>
+      <a href="notFound.html" class="nav-button">PEKERJAAN</a>
+      <a href="pesan.html" class="nav-button">PESAN</a>
+      <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="profile-card">
+        <img
+          src="https://picsum.photos/150/150"
+          alt="Profile"
+          class="profile-image"
+        />
+        <div class="profile-info">
+          <h2>Nama Pengguna</h2>
+          <p class="profile-title">Software Developer</p>
+          <p class="profile-location">Jakarta, Indonesia</p>
+          <p class="profile-bio">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+        </div>
+        <a href="edit.html" class="action-button">EDIT PROFIL</a>
+      </div>
+
+      <div class="feed">
+        <div class="job-card">
+          <h2 class="job-title">SENIOR WEB DEVELOPER</h2>
+          <p class="company-name">PT TECHNOLOGY SOLUTIONS</p>
+          <div class="job-details">
+            <span>JAKARTA</span>
+            <span>FULL TIME</span>
+            <span>Rp 15-25 JUTA</span>
+          </div>
+          <button class="action-button apply-button">LAMAR SEKARANG</button>
+        </div>
+
+        <div class="job-card">
+          <h2 class="job-title">UI/UX DESIGNER</h2>
+          <p class="company-name">CREATIVE DIGITAL AGENCY</p>
+          <div class="job-details">
+            <span>BANDUNG</span>
+            <span>FULL TIME</span>
+            <span>Rp 8-12 JUTA</span>
+          </div>
+          <button class="action-button apply-button">LAMAR SEKARANG</button>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <h2>BERITA TERKINI</h2>
+        <p>Tren Pekerjaan 2024</p>
+        <a
+          href="Berita.html"
+          class="nav-button"
+          style="
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+          "
+          >LIHAT SEMUA</a
+        >
+      </div>
+    </div>
+
+    <div id="notification" class="notification">
+      <span id="notificationText"></span>
+    </div>
+
+    <div id="chatBox" class="chat-box">
+      <div class="chat-header" onclick="toggleChat()">
+        <div class="chat-header-content">
+          <div class="chat-avatar">AI</div>
+          <div class="chat-title">
+            <span>AI Karir Assistant</span>
+            <small>Online</small>
+          </div>
+        </div>
+        <span id="chatToggle">▼</span>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <textarea
+          id="chatInput"
+          placeholder="Tanyakan sesuatu..."
+          rows="1"
+        ></textarea>
+        <button onclick="sendMessage()">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const chatMessages = document.getElementById("chatMessages");
+
+      function addMessage(content, isBot = false) {
+        const message = document.createElement("div");
+        message.className = `chat-message ${
+          isBot ? "bot-message" : "user-message"
+        }`;
+        message.textContent = content;
+        chatMessages.appendChild(message);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("chatInput");
+        const userMessage = input.value.trim();
+        const chatBox = document.getElementById("chatBox");
+        const chatMessages = document.getElementById("chatMessages");
+        const chatToggle = document.getElementById("chatToggle");
+        
+
+        if (!userMessage) return;
+
+        addMessage(userMessage);
+        input.value = "";
+
+        // Simulate bot response
+        setTimeout(() => {
+          const botResponse = generateBotResponse(userMessage);
+          addMessage(botResponse, true);
+        }, 1000);
+      }
+
+      function toggleChat() {
+        chatBox.classList.toggle("minimized");
+        const isMinimized = chatBox.classList.contains("minimized");
+        chatMessages.style.display = isMinimized ? "none" : "block";
+        document.querySelector(".chat-input").style.display = isMinimized
+          ? "none"
+          : "flex";
+      }
+      function adjustTextareaHeight(element) {
+        element.style.height = "auto";
+        element.style.height = element.scrollHeight + "px";
+      }
+
+      document
+        .getElementById("chatInput")
+        .addEventListener("input", function () {
+          adjustTextareaHeight(this);
+        });
+
+      document
+        .getElementById("chatInput")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+
+      function generateBotResponse(message) {
+        const responses = [
+          {
+            keywords: ["lowongan", "kerja", "pekerjaan"],
+            replies: [
+              'Ada banyak lowongan menarik untukmu! Silakan cek halaman "Pekerjaan" untuk info lebih lanjut. 🚀',
+              'Kami punya rekomendasi pekerjaan terbaik! Klik "Pekerjaan" sekarang juga. 💼',
+              "Lowongan terbaru sudah siap untukmu. Yuk, cek detailnya di halaman pekerjaan. 🔍",
+            ],
+          },
+          {
+            keywords: ["gaji", "salary", "pendapatan"],
+            replies: [
+              "Gaji untuk posisi ini cukup kompetitif. Pastikan kamu membaca detailnya di deskripsi pekerjaan! 💰",
+              "Rincian gaji bisa kamu temukan di deskripsi pekerjaan. Semoga sesuai ekspektasi ya! 😊",
+              "Mau tahu gaji lebih detail? Klik dan baca deskripsi pekerjaan sekarang juga. 🔎",
+            ],
+          },
+          {
+            keywords: ["remote", "jarak jauh", "work from home"],
+            replies: [
+              "Tertarik kerja remote? Kami punya beberapa pilihan yang menarik untukmu. Cek sekarang! 🏠",
+              'Remote working? Ada kok! Cari dengan kata kunci "remote" di halaman pekerjaan. 🌐',
+              "Kami tahu kerja remote itu penting. Lihat opsi terbaik di halaman pekerjaan! 📡",
+            ],
+          },
+          {
+            keywords: ["halo", "hai", "hello"],
+            replies: [
+              "Hai! Ada yang bisa saya bantu? 😊",
+              "Halo! Yuk, tanyakan apa yang kamu ingin tahu. 🚀",
+              "Hi! Senang bisa membantu. Silakan tanya apa saja! 🙌",
+            ],
+          },
+        ];
+
+        const fallbackReplies = [
+          "Hmm, saya kurang paham. Bisa dijelaskan lebih detail? 🤔",
+          "Maaf, saya tidak mengerti. Mungkin coba pertanyaan lain? 🙈",
+          "Oh, sepertinya itu di luar keahlian saya. Coba tanyakan hal lain! 😅",
+        ];
+
+        // Cari respons berdasarkan kata kunci
+        for (const { keywords, replies } of responses) {
+          if (
+            keywords.some((keyword) => message.toLowerCase().includes(keyword))
+          ) {
+            return replies[Math.floor(Math.random() * replies.length)];
+          }
+        }
+
+        // Respons fallback jika tidak ada kecocokan
+        return fallbackReplies[
+          Math.floor(Math.random() * fallbackReplies.length)
+        ];
+      }
+    </script>
+
+    <script>
+      function showNotification(message, isLoading = false) {
+        const notification = document.getElementById("notification");
+        const notificationText = document.getElementById("notificationText");
+
+        if (isLoading) {
+          notificationText.innerHTML = `<span class="loading"></span>${message}`;
+        } else {
+          notificationText.textContent = message;
+        }
+
+        notification.classList.add("show");
+
+        if (!isLoading) {
+          setTimeout(() => {
+            notification.classList.remove("show");
+          }, 3000);
+        }
+      }
+
+      document.querySelectorAll(".apply-button").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          if (this.classList.contains("sent")) {
+            return;
+          }
+
+          const jobTitle =
+            this.closest(".job-card").querySelector(".job-title").textContent;
+
+          showNotification("Sedang mengirim lamaran...", true);
+
+          this.disabled = true;
+
+          setTimeout(() => {
+            document.getElementById("notification").classList.remove("show");
+
+            setTimeout(() => {
+              showNotification(`Lamaran untuk ${jobTitle} berhasil dikirim!`);
+
+              this.textContent = "LAMARAN TERKIRIM";
+              this.classList.add("sent");
+              this.style.backgroundColor = "#666";
+            }, 100);
+          }, 3000);
+        });
+      });
+
+      // Load profile data
+      window.onload = function () {
+        const savedProfile = JSON.parse(localStorage.getItem("userProfile"));
+        if (savedProfile) {
+          const profileCard = document.querySelector(".profile-card");
+          if (profileCard) {
+            const profileImage = profileCard.querySelector(".profile-image");
+            const profileName = profileCard.querySelector("h2");
+            const profileTitle = profileCard.querySelector(".profile-title");
+            const profileLocation =
+              profileCard.querySelector(".profile-location");
+            const profileBio = profileCard.querySelector(".profile-bio");
+
+            if (savedProfile.image) profileImage.src = savedProfile.image;
+            if (savedProfile.name) profileName.textContent = savedProfile.name;
+            if (savedProfile.title)
+              profileTitle.textContent = savedProfile.title;
+            if (savedProfile.location)
+              profileLocation.textContent = savedProfile.location;
+            if (savedProfile.bio) profileBio.textContent = savedProfile.bio;
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

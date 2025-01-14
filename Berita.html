@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Lowongan Kerja</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .main-news {
+            background: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+        }
+
+        .news-card {
+            border-bottom: 2px solid #000;
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .news-card:last-child {
+            border-bottom: none;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 3px solid #000;
+            margin-bottom: 15px;
+        }
+
+        .news-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .news-excerpt {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #ff3333;
+            color: #fff;
+            padding: 8px 15px;
+            text-decoration: none;
+            border: 2px solid #000;
+            transition: all 0.2s;
+        }
+
+        .read-more:hover {
+            background-color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        .sidebar {
+            background: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            border: 3px solid #000;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            padding: 10px;
+            border-bottom: 2px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-item:hover {
+            background-color: #f0f0f0;
+            padding-left: 15px;
+        }
+
+        .popular-posts {
+            margin-top: 20px;
+        }
+
+        .popular-post {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 2px solid #eee;
+        }
+
+        .popular-post img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border: 2px solid #000;
+        }
+
+        .popular-post-info {
+            flex: 1;
+        }
+
+        .popular-post-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .popular-post-date {
+            font-size: 12px;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .news-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .news-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+<h1>CAREER.COM</h1>
+    </div>
+
+    <div class="nav">
+        <a href="/" class="nav-button">BERANDA</a>
+        <a href="/jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="/pekerjaan.html" class="nav-button">PEKERJAAN</a>
+        <a href="/pesan.html" class="nav-button">PESAN</a>
+        <a href="/notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </div>
+
+    <div class="news-container">
+        <main class="main-news">
+            <article class="news-card">
+                <img src="https://picsum.photos/800/400" alt="News Image" class="news-image">
+                <div class="news-date">15 Februari 2024</div>
+                <h2 class="news-title">Perusahaan Teknologi Terkemuka Membuka 1000 Lowongan Pekerjaan</h2>
+                <p class="news-excerpt">
+                    Sebuah perusahaan teknologi terkemuka mengumumkan rencana untuk membuka 1000 posisi baru
+                    di berbagai bidang termasuk pengembangan software, data science, dan artificial intelligence.
+                    Ini merupakan kesempatan emas bagi para pencari kerja...
+                </p>
+                <a href="#" class="read-more">BACA SELENGKAPNYA</a>
+            </article>
+
+            <article class="news-card">
+                <img src="https://picsum.photos/800/401" alt="News Image" class="news-image">
+                <div class="news-date">14 Februari 2024</div>
+                <h2 class="news-title">Tips Sukses Wawancara Kerja di Era Digital</h2>
+                <p class="news-excerpt">
+                    Dengan makin banyaknya perusahaan yang melakukan wawancara secara virtual,
+                    penting untuk memahami cara-cara baru dalam menghadapi wawancara kerja.
+                    Berikut adalah tips-tips penting yang perlu Anda ketahui...
+                </p>
+                <a href="#" class="read-more">BACA SELENGKAPNYA</a>
+            </article>
+
+            <article class="news-card">
+                <img src="https://picsum.photos/800/402" alt="News Image" class="news-image">
+                <div class="news-date">13 Februari 2024</div>
+                <h2 class="news-title">Skill yang Paling Dicari Perusahaan di 2024</h2>
+                <p class="news-excerpt">
+                    Berdasarkan survei terbaru, beberapa skill yang paling dicari oleh perusahaan
+                    di tahun 2024 termasuk artificial intelligence, data analysis, dan digital marketing.
+                    Pelajari lebih lanjut tentang skill-skill yang sedang trending...
+                </p>
+                <a href="#" class="read-more">BACA SELENGKAPNYA</a>
+            </article>
+        </main>
+
+        <aside class="sidebar">
+            <input type="text" class="search-box" placeholder="Cari berita...">
+            
+            <h3>KATEGORI</h3>
+            <ul class="category-list">
+                <li class="category-item">Lowongan Kerja</li>
+                <li class="category-item">Tips Karir</li>
+                <li class="category-item">Teknologi</li>
+                <li class="category-item">Pendidikan</li>
+                <li class="category-item">Wirausaha</li>
+            </ul>
+
+            <div class="popular-posts">
+                <h3>ARTIKEL POPULER</h3>
+                <div class="popular-post">
+                    <img src="https://picsum.photos/100/100" alt="Popular post">
+                    <div class="popular-post-info">
+                        <div class="popular-post-title">10 Skill Wajib untuk Fresh Graduate</div>
+                        <div class="popular-post-date">12 Feb 2024</div>
+                    </div>
+                </div>
+                <div class="popular-post">
+                    <img src="https://picsum.photos/100/101" alt="Popular post">
+                    <div class="popular-post-info">
+                        <div class="popular-post-title">Cara Membuat CV yang Menarik</div>
+                        <div class="popular-post-date">11 Feb 2024</div>
+                    </div>
+                </div>
+                <div class="popular-post">
+                    <img src="https://picsum.photos/100/102" alt="Popular post">
+                    <div class="popular-post-info">
+                        <div class="popular-post-title">Tren Pekerjaan Remote 2024</div>
+                        <div class="popular-post-date">10 Feb 2024</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Fungsi pencarian sederhana
+        document.querySelector('.search-box').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.news-card').forEach(card => {
+                const title = card.querySelector('.news-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.news-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Animasi scroll
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Implementasi modal atau redirect ke halaman detail
+                alert('Fitur ini akan segera hadir!');
+            });
+        });
+
+        // Filter kategori
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                alert(`Menampilkan artikel kategori: ${this.textContent}`);
+            });
+        });
+    </script>
+</body>
+</html>

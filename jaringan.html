@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaringan - Portal Kerja Brutalist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            border: 4px solid #000;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .connection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .connection-card {
+            background-color: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .connection-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .connection-image {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #000;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        .connection-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .connection-title {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .connection-stats {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .connect-button {
+            background-color: #ff3333;
+            color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .connect-button:hover {
+            background-color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        .connect-button.connected {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000;
+            color: #fff;
+            padding: 15px 25px;
+            border: 3px solid #ff3333;
+            font-weight: bold;
+            transform: translateX(200%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .search-bar {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: 4px solid #000;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .connection-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-button">BERANDA</a>
+        <a href="jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="notFound.html" class="nav-button">PEKERJAAN</a>
+        <a href="pesan.html" class="nav-button">PESAN</a>
+        <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="CARI KONEKSI...">
+    </div>
+
+    <div class="connection-grid">
+        <div class="connection-card">
+            <img src="https://picsum.photos/120/120?random=1" alt="Profile" class="connection-image">
+            <h3 class="connection-name">John Doe</h3>
+            <p class="connection-title">Senior Developer di Tech Corp</p>
+            <div class="connection-stats">
+                <span>500+ Koneksi</span>
+                <span>Jakarta</span>
+            </div>
+            <button class="connect-button">HUBUNGKAN</button>
+        </div>
+
+        <div class="connection-card">
+            <img src="https://picsum.photos/120/120?random=2" alt="Profile" class="connection-image">
+            <h3 class="connection-name">Jane Smith</h3>
+            <p class="connection-title">UI/UX Designer di Creative Studio</p>
+            <div class="connection-stats">
+                <span>300+ Koneksi</span>
+                <span>Bandung</span>
+            </div>
+            <button class="connect-button">HUBUNGKAN</button>
+        </div>
+
+        <div class="connection-card">
+            <img src="https://picsum.photos/120/120?random=3" alt="Profile" class="connection-image">
+            <h3 class="connection-name">Alex Johnson</h3>
+            <p class="connection-title">Product Manager di Startup Inc</p>
+            <div class="connection-stats">
+                <span>400+ Koneksi</span>
+                <span>Surabaya</span>
+            </div>
+            <button class="connect-button">HUBUNGKAN</button>
+        </div>
+
+        <div class="connection-card">
+            <img src="https://picsum.photos/120/120?random=4" alt="Profile" class="connection-image">
+            <h3 class="connection-name">Sarah Wilson</h3>
+            <p class="connection-title">Frontend Developer di Web Solutions</p>
+            <div class="connection-stats">
+                <span>250+ Koneksi</span>
+                <span>Jakarta</span>
+            </div>
+            <button class="connect-button">HUBUNGKAN</button>
+        </div>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        document.querySelectorAll('.connect-button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!this.classList.contains('connected')) {
+                    const name = this.closest('.connection-card').querySelector('.connection-name').textContent;
+                    showNotification(`Permintaan koneksi terkirim ke ${name}!`);
+                    this.textContent = 'TERHUBUNG';
+                    this.classList.add('connected');
+                }
+            });
+        });
+
+        // Implementasi pencarian sederhana
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            document.querySelectorAll('.connection-card').forEach(card => {
+                const name = card.querySelector('.connection-name').textContent.toLowerCase();
+                const title = card.querySelector('.connection-title').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

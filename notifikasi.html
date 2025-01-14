@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifikasi - Portal Kerja Brutalist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            border: 4px solid #000;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .notifications-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .notification-card {
+            background-color: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .notification-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .notification-card.unread {
+            border-left: 8px solid #ff3333;
+        }
+
+        .notification-time {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .clear-all {
+            background-color: #ff3333;
+            color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .clear-all:hover {
+            background-color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .notification-count {
+            background-color: #ff3333;
+            color: #fff;
+            padding: 5px 10px;
+            border: 3px solid #000;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-button">BERANDA</a>
+        <a href="jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="notFound.html" class="nav-button">PEKERJAAN</a>
+        <a href="pesan.html" class="nav-button">PESAN</a>
+        <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="notifications-container">
+        <div class="notification-header">
+            <h2>NOTIFIKASI</h2>
+            <span class="notification-count">3 BARU</span>
+        </div>
+
+        <button class="clear-all">HAPUS SEMUA NOTIFIKASI</button>
+
+        <div class="notification-card unread">
+            <h3>Lamaran Anda telah dilihat</h3>
+            <p>PT Technology Solutions telah melihat lamaran Anda untuk posisi Senior Web Developer</p>
+            <div class="notification-time">2 jam yang lalu</div>
+        </div>
+
+        <div class="notification-card unread">
+            <h3>Interview Dijadwalkan</h3>
+            <p>HR Tech Corp telah menjadwalkan interview online untuk Selasa, 20 Feb 2024</p>
+            <div class="notification-time">5 jam yang lalu</div>
+        </div>
+
+        <div class="notification-card unread">
+            <h3>Koneksi Baru</h3>
+            <p>John Doe menerima permintaan koneksi Anda</p>
+            <div class="notification-time">1 hari yang lalu</div>
+        </div>
+
+        <div class="notification-card">
+            <h3>Lowongan Baru</h3>
+            <p>5 lowongan baru sesuai dengan preferensi Anda</p>
+            <div class="notification-time">2 hari yang lalu</div>
+        </div>
+    </div>
+
+    <script>
+        const clearAllButton = document.querySelector('.clear-all');
+        const notificationCards = document.querySelectorAll('.notification-card');
+        const notificationCount = document.querySelector('.notification-count');
+        let unreadCount = document.querySelectorAll('.notification-card.unread').length;
+
+        clearAllButton.addEventListener('click', () => {
+            notificationCards.forEach(card => {
+                card.style.display = 'none';
+            });
+            unreadCount = 0;
+            updateNotificationCount();
+        });
+
+        notificationCards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (card.classList.contains('unread')) {
+                    card.classList.remove('unread');
+                    unreadCount--;
+                    updateNotificationCount();
+                }
+            });
+        });
+
+        function updateNotificationCount() {
+            notificationCount.textContent = unreadCount > 0 ? `${unreadCount} BARU` : 'TIDAK ADA BARU';
+            if (unreadCount === 0) {
+                notificationCount.style.backgroundColor = '#666';
+            }
+        }
+    </script>
+</body>
+</html>

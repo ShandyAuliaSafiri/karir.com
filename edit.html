@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil - Portal Kerja Brutalist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            border: 4px solid #000;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .edit-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 4px solid #000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 3px solid #000;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .profile-image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image-preview {
+            width: 150px;
+            height: 150px;
+            border: 4px solid #000;
+            margin: 0 auto 10px;
+            display: block;
+            object-fit: cover;
+        }
+
+        .image-upload-button {
+            background-color: #000;
+            color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .image-upload-button:hover {
+            background-color: #ff3333;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .save-button {
+            background-color: #ff3333;
+            color: #fff;
+            border: 3px solid #000;
+            padding: 15px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .save-button:hover {
+            background-color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #000;
+            color: #fff;
+            padding: 15px 25px;
+            border: 3px solid #ff3333;
+            font-weight: bold;
+            transform: translateX(200%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .edit-container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+       <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-button">BERANDA</a>
+        <a href="jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="pekerjaan.html" class="nav-button">PEKERJAAN</a>
+        <a href="pesan.html" class="nav-button">PESAN</a>
+        <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="edit-container">
+        <h2 style="margin-bottom: 20px;">EDIT PROFIL</h2>
+        <form id="profileForm">
+            <div class="profile-image-container">
+                <img id="profileImagePreview" src="https://picsum.photos/150/150" alt="Profile" class="profile-image-preview">
+                <input type="file" id="profileImage" accept="image/*" style="display: none;">
+                <button type="button" class="image-upload-button" onclick="document.getElementById('profileImage').click()">
+                    GANTI FOTO
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label for="name">NAMA LENGKAP</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="title">JABATAN</label>
+                <input type="text" id="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">LOKASI</label>
+                <input type="text" id="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">BIO</label>
+                <textarea id="bio" required></textarea>
+            </div>
+
+            <button type="submit" class="save-button">SIMPAN PROFIL</button>
+        </form>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        // Load existing profile data if available
+        window.onload = function() {
+            const savedProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+            document.getElementById('name').value = savedProfile.name || '';
+            document.getElementById('title').value = savedProfile.title || '';
+            document.getElementById('location').value = savedProfile.location || '';
+            document.getElementById('bio').value = savedProfile.bio || '';
+            if (savedProfile.image) {
+                document.getElementById('profileImagePreview').src = savedProfile.image;
+            }
+        };
+
+        // Handle image upload
+        document.getElementById('profileImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImagePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Handle form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const profileData = {
+                name: document.getElementById('name').value,
+                title: document.getElementById('title').value,
+                location: document.getElementById('location').value,
+                bio: document.getElementById('bio').value,
+                image: document.getElementById('profileImagePreview').src
+            };
+
+            // Save to localStorage
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+
+            showNotification('Profil berhasil disimpan!');
+            
+            // Redirect to homepage after short delay
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

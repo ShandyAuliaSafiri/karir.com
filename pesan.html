@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan - Portal Kerja Brutalist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            border: 4px solid #000;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 4px solid #ff3333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            border-bottom: 4px solid #000;
+        }
+
+        .nav-button {
+            background-color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-button:hover {
+            background-color: #000;
+            color: #fff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .messages-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            padding: 20px;
+            height: calc(100vh - 140px);
+        }
+
+        .chat-list {
+            background: #fff;
+            border: 4px solid #000;
+            overflow-y: auto;
+        }
+
+        .chat-item {
+            padding: 15px;
+            border-bottom: 4px solid #000;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .chat-item.active {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .chat-item h3 {
+            margin-bottom: 5px;
+        }
+
+        .chat-item p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .chat-window {
+            background: #fff;
+            border: 4px solid #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            border-bottom: 4px solid #000;
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border: 3px solid #000;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message.sent {
+            margin-left: auto;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .message.received {
+            margin-right: auto;
+            background-color: #fff;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 4px solid #000;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 3px solid #000;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+
+        .send-button {
+            background-color: #ff3333;
+            color: #fff;
+            border: 3px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .send-button:hover {
+            background-color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 #ff3333;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .messages-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .chat-list {
+                max-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>CAREER.COM</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-button">BERANDA</a>
+        <a href="jaringan.html" class="nav-button">JARINGAN</a>
+        <a href="notFound.html" class="nav-button">PEKERJAAN</a>
+        <a href="pesan.html" class="nav-button">PESAN</a>
+        <a href="notifikasi.html" class="nav-button">NOTIFIKASI</a>
+    </nav>
+
+    <div class="messages-container">
+        <div class="chat-list">
+            <div class="chat-item active">
+                <h3>John Doe</h3>
+                <p>Terima kasih atas lamarannya...</p>
+            </div>
+            <div class="chat-item">
+                <h3>HR Tech Corp</h3>
+                <p>Selamat! Anda lolos tahap pertama...</p>
+            </div>
+            <div class="chat-item">
+                <h3>Jane Smith</h3>
+                <p>Bagaimana kabar projectnya?</p>
+            </div>
+        </div>
+
+        <div class="chat-window">
+            <div class="chat-header">
+                John Doe - Senior HR Manager
+            </div>
+            <div class="chat-messages">
+                <div class="message received">
+                    Halo! Terima kasih telah melamar di perusahaan kami.
+                </div>
+                <div class="message sent">
+                    Terima kasih kembali! Saya sangat tertarik dengan posisi yang ditawarkan.
+                </div>
+                <div class="message received">
+                    Bagus sekali. Kapan Anda bisa mulai interview?
+                </div>
+                <div class="message sent">
+                    Saya available sepanjang minggu ini.
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" class="message-input" placeholder="Ketik pesan...">
+                <button class="send-button">KIRIM</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const messageInput = document.querySelector('.message-input');
+        const sendButton = document.querySelector('.send-button');
+        const chatMessages = document.querySelector('.chat-messages');
+        const chatItems = document.querySelectorAll('.chat-item');
+
+        sendButton.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'sent');
+                messageElement.textContent = message;
+                chatMessages.appendChild(messageElement);
+                messageInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Simulasi balasan otomatis setelah 1 detik
+                setTimeout(() => {
+                    const autoReply = document.createElement('div');
+                    autoReply.classList.add('message', 'received');
+                    autoReply.textContent = 'Pesan diterima. Akan segera dibalas.';
+                    chatMessages.appendChild(autoReply);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+
+        chatItems.forEach(item => {
+            item.addEventListener('click', () => {
+                chatItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
